@@ -11,3 +11,26 @@ class AppColors {
   static const Color whiteColor = Color(0xFFFFFFFF);
   static const Color cardColor = Color(0xFF1E1E1E);
 }
+extension HexColorExtension on String? {
+  Color toColor() {
+    if (this == null || this!.isEmpty) {
+      return Colors.transparent; // fallback
+    }
+
+    String hex = this!.replaceAll('#', '');
+    if (hex.length == 6) {
+      hex = 'FF$hex'; // Add full opacity if missing
+    }
+
+    // Validate that it’s a proper hex value
+    if (hex.length != 8) {
+      return Colors.transparent;
+    }
+
+    try {
+      return Color(int.parse(hex, radix: 16));
+    } catch (_) {
+      return Colors.transparent; // If parsing fails
+    }
+  }
+}

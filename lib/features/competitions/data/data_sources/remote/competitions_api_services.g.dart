@@ -86,9 +86,7 @@ class _CompetitionsApiService implements CompetitionsApiService {
   }
 
   @override
-  Future<HttpResponse<dynamic>> getAllMachesByLeagueIdUseCase(
-    int leagueId,
-  ) async {
+  Future<HttpResponse<dynamic>> getAllMachesByLeagueId(int leagueId) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'leagueid': leagueId};
     final _headers = <String, dynamic>{};
@@ -98,6 +96,28 @@ class _CompetitionsApiService implements CompetitionsApiService {
           .compose(
             _dio.options,
             'football-get-all-matches-by-league',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch(_options);
+    final _value = _result.data;
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<dynamic>> getLeagueStandingsById(int leagueId) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'leagueid': leagueId};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<HttpResponse<dynamic>>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            'football-get-standing-all',
             queryParameters: queryParameters,
             data: _data,
           )

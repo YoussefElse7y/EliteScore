@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:football_app/core/helpers/number_to_current_language.dart';
 import 'package:football_app/core/helpers/shared_prefs_helper.dart';
+import 'package:football_app/core/theme/colors.dart';
 import 'package:football_app/features/profile/presentation/bloc/bloc/account_bloc.dart';
 import 'package:football_app/generated/l10n.dart';
 
@@ -30,7 +32,7 @@ class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1A1A),
+      backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -42,7 +44,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 child: Text(
                   S.current.my_account,
                   style: TextStyle(
-                    fontSize: 32,
+                    fontSize: 24.sp,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
@@ -73,13 +75,13 @@ class _AccountScreenState extends State<AccountScreen> {
           width: 100,
           height: 100,
           decoration: BoxDecoration(
-            color: Colors.grey.shade700,
+            color: AppColors.cardColor,
             shape: BoxShape.circle,
           ),
           child: const Icon(
             Icons.person_outline,
             size: 50,
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
         const SizedBox(height: 16),
@@ -115,17 +117,26 @@ class _AccountScreenState extends State<AccountScreen> {
           margin: const EdgeInsets.symmetric(horizontal: 16),
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: const Color(0xFF2A2A2A),
+            color: AppColors.cardColor,
             borderRadius: BorderRadius.circular(16),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _buildFavoriteItem(S.current.competitions, '2'.toCurrentNumberLanguage(context)??'2'),
+              _buildFavoriteItem(
+                S.current.competitions,
+                '2'.toCurrentNumberLanguage(context) ?? '2',
+              ),
               Container(width: 1, height: 40, color: Colors.grey.shade800),
-              _buildFavoriteItem(S.current.team, '4'.toCurrentNumberLanguage(context)??'4'),
+              _buildFavoriteItem(
+                S.current.team,
+                '4'.toCurrentNumberLanguage(context) ?? '4',
+              ),
               Container(width: 1, height: 40, color: Colors.grey.shade800),
-              _buildFavoriteItem(S.current.players, '8'.toCurrentNumberLanguage(context)??'8'),
+              _buildFavoriteItem(
+                S.current.players,
+                '8'.toCurrentNumberLanguage(context) ?? '8',
+              ),
             ],
           ),
         ),

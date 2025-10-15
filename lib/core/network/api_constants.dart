@@ -2,13 +2,13 @@ class ApiConstants {
   static const String baseUrl =
       "https://free-api-live-football-data.p.rapidapi.com/";
   static const String apiKey =
-      '51cc400361msh62c6a2271094409p1d1ea1jsn7d68564c738b';
+      'bb5d8f47fbmsh5c8ceeb50e810b3p132fdejsn786ca16e9701';
   static const String apiHost = 'free-api-live-football-data.p.rapidapi.com';
   static const String popularLeaguesEndpoint = 'football-popular-leagues';
   static const String getLeagueDetails = 'football-get-league-detail';
   static const String getLeagueLogo = 'football-get-league-logo';
   static const String getLeagueFixtures = 'football-get-all-matches-by-league';
-  static const String getLeagueStandings = 'football-get-league-standings';
+  static const String getLeagueStandings = 'football-get-standing-all';
   static const String getLeagueMatches = 'football-get-league-matches';
   static const String getLeagueTeams = 'football-get-league-teams';
 }

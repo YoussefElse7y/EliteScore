@@ -9,7 +9,7 @@ import 'package:football_app/features/competitions/presentation/screens/competit
 import 'package:football_app/features/competitions/presentation/screens/competitions_screen.dart';
 import 'package:football_app/features/home/presentation/screens/home_screen.dart';
 import 'package:football_app/features/home/presentation/screens/main_screen.dart';
-import 'package:football_app/features/news/ui/screens/news_screen.dart';
+import 'package:football_app/features/news/presentation/screens/news_screen.dart';
 import 'package:football_app/features/profile/presentation/screens/account_screen.dart';
 
 class AppRouter {

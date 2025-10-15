@@ -23,7 +23,14 @@ abstract class CompetitionsApiService {
   );
 
   @GET(ApiConstants.getLeagueFixtures)
-  Future<HttpResponse<dynamic>> getAllMachesByLeagueIdUseCase(
+  Future<HttpResponse<dynamic>> getAllMachesByLeagueId(
     @Query("leagueid") int leagueId,
   );
+
+  @GET(ApiConstants.getLeagueStandings)
+  Future<HttpResponse<dynamic>> getLeagueStandingsById(
+    @Query("leagueid") int leagueId,
+  );
+
+
 }
