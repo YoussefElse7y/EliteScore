@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:football_app/core/theme/colors.dart';
 import 'package:football_app/features/home/presentation/widgets/live_match_card.dart';
 import 'package:football_app/features/home/presentation/widgets/scores_list.dart';
+import 'package:football_app/generated/l10n.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -51,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Row(
         children: [
           Text(
-            'scorelive',
+            S.current.app_name,
             style: TextStyle(
               fontSize: 26.sp,
               fontWeight: FontWeight.bold,
@@ -170,7 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Live Now',
+                S.current.live_now,
                 style: TextStyle(
                   fontSize: 26.sp,
                   fontWeight: FontWeight.bold,
@@ -180,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
               TextButton(
                 onPressed: () {},
                 child: Text(
-                  'See More',
+                  S.current.see_more,
                   style: TextStyle(
                     color: Color(0xFFFF4081),
                     fontSize: 14.sp,
@@ -199,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             children: [
               LiveMatchCard(
-                league: 'Premier League',
+                league: S.current.premier_league,
                 flagIcon: Icons.flag,
                 homeTeam: 'Nottingham Forest',
                 homeIcon: Icons.sports_soccer,
@@ -236,8 +237,8 @@ class _HomeScreenState extends State<HomeScreen> {
           Expanded(
             child: TextButton(
               onPressed: () {},
-              child: const Text(
-                'Upcoming',
+              child:  Text(
+                S.current.upcoming,
                 style: TextStyle(color: Colors.grey, fontSize: 16),
               ),
             ),
@@ -246,8 +247,8 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  'Score',
+                 Text(
+                  S.current.score,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,
@@ -268,8 +269,8 @@ class _HomeScreenState extends State<HomeScreen> {
           Expanded(
             child: TextButton(
               onPressed: () {},
-              child: const Text(
-                'Favorites',
+              child:  Text(
+                S.current.favorites,
                 style: TextStyle(color: Colors.grey, fontSize: 16),
               ),
             ),

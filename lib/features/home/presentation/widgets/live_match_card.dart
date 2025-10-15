@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:football_app/core/theme/colors.dart';
+import 'package:football_app/generated/l10n.dart';
 
 class LiveMatchCard extends StatelessWidget {
   final String league;
@@ -140,7 +141,7 @@ class LiveMatchCard extends StatelessWidget {
                 ),
               ),
               child: Text(
-                'Details',
+                S.current.details,
                 style: TextStyle(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.bold,

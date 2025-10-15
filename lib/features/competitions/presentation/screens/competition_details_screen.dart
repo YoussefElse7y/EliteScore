@@ -6,6 +6,7 @@ import 'package:football_app/features/competitions/presentation/bloc/fixture/blo
 import 'package:football_app/features/competitions/presentation/bloc/league_details/remote/bloc/league_details_bloc.dart';
 import 'package:football_app/features/competitions/presentation/widgets/fixture_list.dart';
 import 'package:football_app/features/competitions/presentation/widgets/scores_list.dart';
+import 'package:football_app/generated/l10n.dart';
 
 class Match {
   final String homeTeam;
@@ -44,53 +45,6 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
-  final List<Match> matches = [
-    Match(
-      homeTeam: 'Nottingham Forest',
-      awayTeam: 'Manchester United',
-      homeLogo: '🌲',
-      awayLogo: '👹',
-      homeScore: 0,
-      awayScore: 2,
-      status: "'78",
-      date: 'Matchweek 31',
-      time: '',
-    ),
-    Match(
-      homeTeam: 'West Ham United',
-      awayTeam: 'Arsenal',
-      homeLogo: '⚒️',
-      awayLogo: '🔴',
-      homeScore: 2,
-      awayScore: 2,
-      status: 'FT',
-      date: '15/4',
-      time: '',
-    ),
-    Match(
-      homeTeam: 'Chelsea',
-      awayTeam: 'Brighton & Hove Albion',
-      homeLogo: '🔵',
-      awayLogo: '⚪',
-      homeScore: 1,
-      awayScore: 2,
-      status: 'FT',
-      date: '15/4',
-      time: '',
-    ),
-    Match(
-      homeTeam: 'Manchester City',
-      awayTeam: 'Leicester City',
-      homeLogo: '💙',
-      awayLogo: '🦊',
-      homeScore: 3,
-      awayScore: 1,
-      status: 'FT',
-      date: '15/4',
-      time: '',
-    ),
-  ];
-
   @override
   void initState() {
     super.initState();
@@ -118,8 +72,8 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
             icon: const Icon(Icons.arrow_back, color: AppColors.whiteColor),
             onPressed: () => Navigator.pop(context),
           ),
-          title: const Text(
-            'Competition',
+          title: Text(
+            S.current.competition,
             style: TextStyle(
               color: AppColors.whiteColor,
               fontSize: 18,
@@ -219,11 +173,11 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                         ),
-                        tabs: const [
-                          Tab(text: 'Results'),
-                          Tab(text: 'Fixtures'),
-                          Tab(text: 'Standings'),
-                          Tab(text: 'Stats'),
+                        tabs: [
+                          Tab(text: S.current.results),
+                          Tab(text: S.current.fixtures),
+                          Tab(text: S.current.standings),
+                          Tab(text: S.current.stats),
                         ],
                       ),
                     ),

@@ -43,5 +43,6 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/news/
 flutter_intl:
   enabled: true

@@ -10,6 +10,7 @@ import 'package:football_app/features/home/presentation/screens/home_screen.dart
 import 'package:football_app/features/news/ui/screens/news_screen.dart';
 import 'package:football_app/features/profile/presentation/bloc/bloc/account_bloc.dart';
 import 'package:football_app/features/profile/presentation/screens/account_screen.dart';
+import 'package:football_app/generated/l10n.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -81,25 +82,25 @@ class CustomBottomNavigationBar extends StatelessWidget {
                 index: 0,
                 filledIcon: AppAssets.homeFilledIcon,
                 regularIcon: AppAssets.homeRegularIcon,
-                label: 'Home',
+                label: S.current.home_page,
               ),
               _buildNavItem(
                 index: 1,
                 filledIcon: AppAssets.competitionsFilledIcon,
                 regularIcon: AppAssets.competitionsRegularIcon,
-                label: 'Competition',
+                label: S.current.competitions,
               ),
               _buildNavItem(
                 index: 2,
                 filledIcon: AppAssets.newsFilledIcon,
                 regularIcon: AppAssets.newsRegularIcon,
-                label: 'News',
+                label: S.current.news,
               ),
               _buildNavItem(
                 index: 3,
                 filledIcon: AppAssets.accountFilledIcon,
                 regularIcon: AppAssets.accountRegularIcon,
-                label: 'Account',
+                label: S.current.account,
               ),
             ],
           ),

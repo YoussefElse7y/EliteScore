@@ -7,6 +7,7 @@ import 'package:football_app/core/theme/colors.dart';
 import 'package:football_app/core/widgets/custom_snack_bar.dart';
 import 'package:football_app/features/competitions/domain/entities/popular_league_entity.dart';
 import 'package:football_app/features/competitions/presentation/bloc/competitions/remote/bloc/remote_competitions_bloc.dart';
+import 'package:football_app/generated/l10n.dart';
 class CompetitionsScreen extends StatefulWidget {
   const CompetitionsScreen({super.key});
 
@@ -17,44 +18,6 @@ class CompetitionsScreen extends StatefulWidget {
 class _CompetitionsScreenState extends State<CompetitionsScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  final List<CompetitionItem> competitions = [
-    CompetitionItem(
-      region: 'Europe',
-      competition: 'Champions League',
-      flagIcon: Icons.flag,
-    ),
-    CompetitionItem(
-      region: 'England',
-      competition: 'Premier League',
-      flagIcon: Icons.flag,
-    ),
-    CompetitionItem(
-      region: 'Spain',
-      competition: 'La Liga',
-      flagIcon: Icons.flag,
-    ),
-    CompetitionItem(
-      region: 'Italy',
-      competition: 'Serie A',
-      flagIcon: Icons.flag,
-    ),
-    CompetitionItem(
-      region: 'Germany',
-      competition: 'Bundesliga',
-      flagIcon: Icons.flag,
-    ),
-    CompetitionItem(
-      region: 'France',
-      competition: 'Ligue 1',
-      flagIcon: Icons.flag,
-    ),
-    CompetitionItem(
-      region: 'Europe',
-      competition: 'Europa League',
-      flagIcon: Icons.flag,
-    ),
-  ];
-
   @override
   void initState() {
     super.initState();
@@ -88,7 +51,7 @@ class _CompetitionsScreenState extends State<CompetitionsScreen>
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Text(
-                        'Browse Competition',
+                        S.current.browse_competitions,
                         style: TextStyle(
                           fontSize: 20.sp,
                           fontWeight: FontWeight.bold,
@@ -101,10 +64,10 @@ class _CompetitionsScreenState extends State<CompetitionsScreen>
                     const SizedBox(height: 24),
                     _buildTabBar(),
                     const SizedBox(height: 16),
-                    const Padding(
+                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16),
                       child: Text(
-                        'TOP COMPETITIONS',
+                        S.current.top_competitions,
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
@@ -169,7 +132,7 @@ class _CompetitionsScreenState extends State<CompetitionsScreen>
         child: TextField(
           style: const TextStyle(color: Colors.white, fontSize: 16),
           decoration: InputDecoration(
-            hintText: 'Search for competition, club...',
+            hintText: S.current.search_for_competitions,
             hintStyle: TextStyle(color: Colors.grey.shade600, fontSize: 16),
             icon: Icon(Icons.search, color: Colors.grey.shade600, size: 24),
             border: InputBorder.none,
@@ -192,10 +155,10 @@ class _CompetitionsScreenState extends State<CompetitionsScreen>
       indicatorColor: const Color(0xFFFF4081),
       indicatorWeight: 3,
       indicatorSize: TabBarIndicatorSize.label,
-      tabs: const [
-        Tab(text: 'Top'),
-        Tab(text: 'Region'),
-        Tab(text: 'Favorites'),
+      tabs:  [
+        Tab(text: S.current.top),
+        Tab(text: S.current.region),
+        Tab(text: S.current.favorites),
       ],
     );
   }

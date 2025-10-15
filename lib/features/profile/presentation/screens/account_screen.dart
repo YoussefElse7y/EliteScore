@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:football_app/core/helpers/number_to_current_language.dart';
 import 'package:football_app/core/helpers/shared_prefs_helper.dart';
 import 'package:football_app/features/profile/presentation/bloc/bloc/account_bloc.dart';
+import 'package:football_app/generated/l10n.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
@@ -35,10 +37,10 @@ class _AccountScreenState extends State<AccountScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 20),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
-                  'My Account',
+                  S.current.my_account,
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
@@ -81,8 +83,8 @@ class _AccountScreenState extends State<AccountScreen> {
           ),
         ),
         const SizedBox(height: 16),
-        const Text(
-          'John Doe',
+        Text(
+          S.current.developer_name,
           style: TextStyle(
             color: Colors.white,
             fontSize: 24,
@@ -97,10 +99,10 @@ class _AccountScreenState extends State<AccountScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
+        Padding(
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: Text(
-            'Favorites',
+            S.current.favorites,
             style: TextStyle(
               color: Colors.grey,
               fontSize: 16,
@@ -119,11 +121,11 @@ class _AccountScreenState extends State<AccountScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _buildFavoriteItem('Competitions', '2'),
+              _buildFavoriteItem(S.current.competitions, '2'.toCurrentNumberLanguage(context)??'2'),
               Container(width: 1, height: 40, color: Colors.grey.shade800),
-              _buildFavoriteItem('Competitions', '4'),
+              _buildFavoriteItem(S.current.team, '4'.toCurrentNumberLanguage(context)??'4'),
               Container(width: 1, height: 40, color: Colors.grey.shade800),
-              _buildFavoriteItem('Players', '8'),
+              _buildFavoriteItem(S.current.players, '8'.toCurrentNumberLanguage(context)??'8'),
             ],
           ),
         ),
@@ -162,8 +164,8 @@ class _AccountScreenState extends State<AccountScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  'General',
+                Text(
+                  S.current.general,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
@@ -183,7 +185,7 @@ class _AccountScreenState extends State<AccountScreen> {
         ),
         if (generalExpanded) ...[
           _buildSettingItem(
-            'App Notifications',
+            S.current.app_notification,
             trailing: Switch(
               value: notificationsEnabled,
               onChanged: (value) {
@@ -202,7 +204,7 @@ class _AccountScreenState extends State<AccountScreen> {
             endIndent: 16,
           ),
           _buildSettingItem(
-            'Dark Theme',
+            S.current.dark_theme,
             trailing: Switch(
               value: darkThemeEnabled,
               onChanged: (value) {
@@ -224,9 +226,9 @@ class _AccountScreenState extends State<AccountScreen> {
             'Filter Matches By',
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
-              children: const [
+              children: [
                 Text(
-                  'League',
+                  S.current.league,
                   style: TextStyle(color: Colors.grey, fontSize: 16),
                 ),
                 SizedBox(width: 8),
@@ -301,7 +303,7 @@ class _AccountScreenState extends State<AccountScreen> {
         }
       },
       child: _buildSettingItem(
-        'Language',
+        S.current.language,
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -331,8 +333,8 @@ class _AccountScreenState extends State<AccountScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  'Other',
+                Text(
+                  S.current.others,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
@@ -351,21 +353,21 @@ class _AccountScreenState extends State<AccountScreen> {
           ),
         ),
         if (otherExpanded) ...[
-          _buildSettingItem('About'),
+          _buildSettingItem(S.current.about),
           Divider(
             color: Colors.grey.shade800,
             height: 1,
             indent: 16,
             endIndent: 16,
           ),
-          _buildSettingItem('Privacy Policy'),
+          _buildSettingItem(S.current.privacy_policy),
           Divider(
             color: Colors.grey.shade800,
             height: 1,
             indent: 16,
             endIndent: 16,
           ),
-          _buildSettingItem('Terms & Conditions'),
+          _buildSettingItem(S.current.terms_and_conditions),
         ],
       ],
     );
@@ -407,8 +409,8 @@ class _AccountScreenState extends State<AccountScreen> {
             borderRadius: BorderRadius.circular(12),
           ),
         ),
-        child: const Text(
-          'Log Out',
+        child: Text(
+          S.current.logout,
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,

@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:football_app/generated/l10n.dart';
 
 class NewsScreen extends StatefulWidget {
   const NewsScreen({super.key});
@@ -16,16 +17,16 @@ class _NewsScreenState extends State<NewsScreen>
   final List<NewsArticle> featuredNews = [
     NewsArticle(
       title: 'Erling Haaland Breaks a Premier League Most Scored',
-      imageUrl: 'assets/news/haaland.jpg',
-      tags: ['Latest', 'Premier League'],
-      timeAgo: '5 hours ago',
+      imageUrl: 'assets/news/haaland.png',
+      tags: [S.current.latest, S.current.premier_league],
+      timeAgo: '5 ${S.current.hours_ago}',
       isLarge: true,
     ),
     NewsArticle(
       title: 'Real Madrid Beat Real Sociedad',
-      imageUrl: 'assets/news/real_madrid.jpg',
-      tags: ['Latest', 'La Liga'],
-      timeAgo: '5 hours ago',
+      imageUrl: 'assets/news/real_madrid.png',
+      tags: [S.current.latest, 'La Liga'],
+      timeAgo: '5 ${S.current.hours_ago}',
       isLarge: true,
     ),
   ];
@@ -33,16 +34,16 @@ class _NewsScreenState extends State<NewsScreen>
   final List<NewsArticle> newsList = [
     NewsArticle(
       title: 'PL Relegation Got Heated Up: Who\'s Get Relegated?',
-      imageUrl: 'assets/news/relegation.jpg',
-      tags: ['Latest', 'Premier League'],
-      timeAgo: '5 hours ago',
+      imageUrl: 'assets/news/relegation.png',
+      tags: [ S.current.latest,  S.current.premier_league],
+      timeAgo: '5 ${S.current.hours_ago}',
       isLarge: false,
     ),
     NewsArticle(
       title: 'Al Hilal Rumoured To Sign Leo Messi With High Offering',
-      imageUrl: 'assets/news/messi.jpg',
-      tags: ['Latest', 'Transfer'],
-      timeAgo: '5 hours ago',
+      imageUrl: 'assets/news/messi.png',
+      tags: [ S.current.latest, 'Transfer'],
+      timeAgo: '50 ${S.current.minutes_ago}',
       isLarge: false,
     ),
   ];
@@ -73,10 +74,10 @@ class _NewsScreenState extends State<NewsScreen>
             const SizedBox(height: 20),
             _buildTabBar(),
             const SizedBox(height: 24),
-            const Padding(
+             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                'Latest',
+                S.current.latest,
                 style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
@@ -119,10 +120,10 @@ class _NewsScreenState extends State<NewsScreen>
         indicatorWeight: 3,
         indicatorSize: TabBarIndicatorSize.label,
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        tabs: const [
-          Tab(text: 'Latest'),
-          Tab(text: 'Premier League'),
-          Tab(text: 'European Football'),
+        tabs:  [
+          Tab(text: S.current.latest),
+          Tab(text: S.current.premier_league),
+          Tab(text: S.current.europa_league),
           Tab(text: 'Transfer'),
         ],
       ),
@@ -159,9 +160,7 @@ class _NewsScreenState extends State<NewsScreen>
               borderRadius: BorderRadius.circular(16),
               child: Container(
                 color: const Color(0xFF3A3A3A),
-                child: const Center(
-                  child: Icon(Icons.image, size: 80, color: Colors.grey),
-                ),
+                child: Image.asset(article.imageUrl, fit: BoxFit.cover),
               ),
             ),
           ),
@@ -266,9 +265,7 @@ class _NewsScreenState extends State<NewsScreen>
               borderRadius: BorderRadius.circular(12),
               child: Container(
                 color: const Color(0xFF3A3A3A),
-                child: const Center(
-                  child: Icon(Icons.image, size: 40, color: Colors.grey),
-                ),
+                child: Image.asset(article.imageUrl, fit: BoxFit.cover),
               ),
             ),
           ),

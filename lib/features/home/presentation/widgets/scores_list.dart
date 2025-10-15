@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:football_app/features/home/presentation/widgets/match_result.dart';
+import 'package:football_app/generated/l10n.dart';
 
 class ScoresList extends StatelessWidget {
   const ScoresList({super.key});
@@ -14,8 +15,8 @@ class ScoresList extends StatelessWidget {
             children: [
               Icon(Icons.flag, color: Colors.white, size: 20),
               const SizedBox(width: 8),
-              const Text(
-                'Premier League',
+               Text(
+                 S.current.premier_league,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 16,
