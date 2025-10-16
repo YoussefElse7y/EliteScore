@@ -200,22 +200,34 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             children: [
               LiveMatchCard(
+                leagueLogoUrl:
+                    'https://images.fotmob.com/image_resources/logo/leaguelogo/dark/47.png',
                 league: S.current.premier_league,
                 flagIcon: Icons.flag,
-                homeTeam: 'Nottingham Forest',
+                homeTeam: 'Liverpool',
+                homeLogoUrl:
+                    'https://images.fotmob.com/image_resources/logo/teamlogo/8650.png',
                 homeIcon: Icons.sports_soccer,
                 awayTeam: 'Manchester United',
+                awayLogoUrl:
+                    'https://images.fotmob.com/image_resources/logo/teamlogo/10260.png',
                 awayIcon: Icons.sports_soccer,
-                homeScore: '0',
-                awayScore: '2',
+                homeScore: '2',
+                awayScore: '1',
                 minute: '78',
               ),
               LiveMatchCard(
+                leagueLogoUrl:
+                    'https://images.fotmob.com/image_resources/logo/leaguelogo/dark/87.png',
                 league: 'La Liga',
                 flagIcon: Icons.flag,
-                homeTeam: 'Getafe',
+                homeTeam: 'Real Madrid',
+                homeLogoUrl:
+                    'https://images.fotmob.com/image_resources/logo/teamlogo/8633.png',
                 homeIcon: Icons.sports_soccer,
-                awayTeam: 'Team',
+                awayTeam: 'Barcelona',
+                awayLogoUrl:
+                    'https://images.fotmob.com/image_resources/logo/teamlogo/8634.png',
                 awayIcon: Icons.sports_soccer,
                 homeScore: '1',
                 awayScore: '1',
@@ -237,7 +249,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Expanded(
             child: TextButton(
               onPressed: () {},
-              child:  Text(
+              child: Text(
                 S.current.upcoming,
                 style: TextStyle(color: Colors.grey, fontSize: 16),
               ),
@@ -247,7 +259,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                 Text(
+                Text(
                   S.current.score,
                   style: TextStyle(
                     color: Colors.white,
@@ -269,7 +281,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Expanded(
             child: TextButton(
               onPressed: () {},
-              child:  Text(
+              child: Text(
                 S.current.favorites,
                 style: TextStyle(color: Colors.grey, fontSize: 16),
               ),

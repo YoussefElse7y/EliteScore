@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:football_app/core/di/dependency_injection.dart';
 import 'package:football_app/core/helpers/shared_prefs_helper.dart';
@@ -11,6 +12,7 @@ final GlobalKey<ScoreLiveAppState> appKey = GlobalKey<ScoreLiveAppState>();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
   await SharedPrefsHelper.init();
   setupGetIt();
   await ScreenUtil.ensureScreenSize();

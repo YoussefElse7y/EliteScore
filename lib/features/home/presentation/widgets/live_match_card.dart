@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:football_app/core/routing/routes.dart';
 import 'package:football_app/core/theme/colors.dart';
+import 'package:football_app/features/home/presentation/screens/match_details_secreen.dart';
 import 'package:football_app/generated/l10n.dart';
 
 class LiveMatchCard extends StatelessWidget {
@@ -13,9 +15,14 @@ class LiveMatchCard extends StatelessWidget {
   final String homeScore;
   final String awayScore;
   final String minute;
+  final String leagueLogoUrl;
+  final String homeLogoUrl;
+  final String awayLogoUrl;
 
   const LiveMatchCard({
     super.key,
+    required this.awayLogoUrl,
+    required this.homeLogoUrl,
     required this.league,
     required this.flagIcon,
     required this.homeTeam,
@@ -25,6 +32,7 @@ class LiveMatchCard extends StatelessWidget {
     required this.homeScore,
     required this.awayScore,
     required this.minute,
+    required this.leagueLogoUrl,
   });
 
   @override
@@ -42,7 +50,25 @@ class LiveMatchCard extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             child: Row(
               children: [
-                Icon(flagIcon, color: Colors.white, size: 20),
+                SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: Image.network(
+                    leagueLogoUrl,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes!
+                              : null,
+                        ),
+                      );
+                    },
+                  ),
+                ),
                 const SizedBox(width: 8),
                 Text(
                   league,
@@ -81,7 +107,26 @@ class LiveMatchCard extends StatelessWidget {
                 Expanded(
                   child: Column(
                     children: [
-                      Icon(homeIcon, size: 48, color: Colors.white),
+                      SizedBox(
+                        width: 42,
+                        height: 42,
+                        child: Image.network(
+                          homeLogoUrl,
+                          fit: BoxFit.cover,
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return Center(
+                              child: CircularProgressIndicator(
+                                value:
+                                    loadingProgress.expectedTotalBytes != null
+                                    ? loadingProgress.cumulativeBytesLoaded /
+                                          loadingProgress.expectedTotalBytes!
+                                    : null,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
                       SizedBox(height: 6.h),
                       Text(
                         homeTeam,
@@ -110,7 +155,26 @@ class LiveMatchCard extends StatelessWidget {
                 Expanded(
                   child: Column(
                     children: [
-                      Icon(awayIcon, size: 48, color: Colors.white),
+                      SizedBox(
+                        width: 42,
+                        height: 42,
+                        child: Image.network(
+                          awayLogoUrl,
+                          fit: BoxFit.cover,
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return Center(
+                              child: CircularProgressIndicator(
+                                value:
+                                    loadingProgress.expectedTotalBytes != null
+                                    ? loadingProgress.cumulativeBytesLoaded /
+                                          loadingProgress.expectedTotalBytes!
+                                    : null,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
                       SizedBox(height: 6.h),
                       Text(
                         awayTeam,
@@ -132,7 +196,23 @@ class LiveMatchCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(14),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  Routes.matchDetailsScreen,
+                  arguments: MatchDetail(
+                    leagueName: league,
+                    leagueLogo: leagueLogoUrl,
+                    matchTime: minute,
+                    homeTeamName: homeTeam,
+                    homeTeamLogo: homeLogoUrl,
+                    awayTeamName: awayTeam,
+                    awayTeamLogo: awayLogoUrl,
+                    homeScore: homeScore,
+                    awayScore: awayScore,
+                  ),
+                );
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primaryColor,
                 minimumSize: Size(double.infinity, 48.h),

@@ -10,8 +10,12 @@ class MatchResult extends StatelessWidget {
   final String awayScore;
   final String date;
   final bool isFinished;
+  final String homeLogoUrl;
+  final String awayLogoUrl;
   const MatchResult({
     super.key,
+    required this.homeLogoUrl,
+    required this.awayLogoUrl,
     required this.homeTeam,
     required this.homeIcon,
     required this.homeScore,
@@ -56,7 +60,25 @@ class MatchResult extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Icon(homeIcon, size: 24, color: Colors.white),
+                      SizedBox(
+                  width: 24,
+                  height: 24,
+                  child: Image.network(
+                    homeLogoUrl,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes!
+                              : null,
+                        ),
+                      );
+                    },
+                  ),
+                ),
                     const SizedBox(width: 12),
                     Expanded(
                       child: Text(
@@ -80,7 +102,25 @@ class MatchResult extends StatelessWidget {
                 const SizedBox(height: 12),
                 Row(
                   children: [
-                    Icon(awayIcon, size: 24, color: Colors.white),
+                      SizedBox(
+                  width: 24,
+                  height: 24,
+                  child: Image.network(
+                    awayLogoUrl,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes!
+                              : null,
+                        ),
+                      );
+                    },
+                  ),
+                ),
                     const SizedBox(width: 12),
                     Expanded(
                       child: Text(

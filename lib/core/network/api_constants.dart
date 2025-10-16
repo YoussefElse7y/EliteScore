@@ -1,8 +1,9 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 class ApiConstants {
   static const String baseUrl =
       "https://free-api-live-football-data.p.rapidapi.com/";
-  static const String apiKey =
-      'bb5d8f47fbmsh5c8ceeb50e810b3p132fdejsn786ca16e9701';
+  static final String apiKey = dotenv.env['API_KEY']!;
   static const String apiHost = 'free-api-live-football-data.p.rapidapi.com';
   static const String popularLeaguesEndpoint = 'football-popular-leagues';
   static const String getLeagueDetails = 'football-get-league-detail';
