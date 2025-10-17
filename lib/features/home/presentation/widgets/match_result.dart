@@ -60,25 +60,32 @@ class MatchResult extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                      SizedBox(
-                  width: 24,
-                  height: 24,
-                  child: Image.network(
-                    homeLogoUrl,
-                    fit: BoxFit.cover,
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress == null) return child;
-                      return Center(
-                        child: CircularProgressIndicator(
-                          value: loadingProgress.expectedTotalBytes != null
-                              ? loadingProgress.cumulativeBytesLoaded /
-                                    loadingProgress.expectedTotalBytes!
-                              : null,
-                        ),
-                      );
-                    },
-                  ),
-                ),
+                    SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: Image.network(
+                        homeLogoUrl,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Icon(
+                            Icons.shield,
+                            color: Colors.white,
+                            size: 24,
+                          );
+                        },
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Center(
+                            child: CircularProgressIndicator(
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                        loadingProgress.expectedTotalBytes!
+                                  : null,
+                            ),
+                          );
+                        },
+                      ),
+                    ),
                     const SizedBox(width: 12),
                     Expanded(
                       child: Text(
@@ -102,25 +109,32 @@ class MatchResult extends StatelessWidget {
                 const SizedBox(height: 12),
                 Row(
                   children: [
-                      SizedBox(
-                  width: 24,
-                  height: 24,
-                  child: Image.network(
-                    awayLogoUrl,
-                    fit: BoxFit.cover,
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress == null) return child;
-                      return Center(
-                        child: CircularProgressIndicator(
-                          value: loadingProgress.expectedTotalBytes != null
-                              ? loadingProgress.cumulativeBytesLoaded /
-                                    loadingProgress.expectedTotalBytes!
-                              : null,
-                        ),
-                      );
-                    },
-                  ),
-                ),
+                    SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: Image.network(
+                        awayLogoUrl,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Icon(
+                            Icons.shield,
+                            color: Colors.white,
+                            size: 24,
+                          );
+                        },
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Center(
+                            child: CircularProgressIndicator(
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                        loadingProgress.expectedTotalBytes!
+                                  : null,
+                            ),
+                          );
+                        },
+                      ),
+                    ),
                     const SizedBox(width: 12),
                     Expanded(
                       child: Text(

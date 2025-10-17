@@ -38,6 +38,35 @@ class SharedPrefsHelper {
 
   static double? getDouble(String key) => _prefs?.getDouble(key);
 
+   // --------------------------
+  // 🕐 Cache Timestamp Keys
+  // --------------------------
+  static const String _keyLastFetchPrefix = 'last_fetch_';
+  
+  /// Save when data was last fetched
+  static Future<void> saveLastFetchTime(String key) async {
+    final timestamp = DateTime.now().millisecondsSinceEpoch;
+    await setInt('$_keyLastFetchPrefix$key', timestamp);
+  }
+  
+  /// Get when data was last fetched
+  static DateTime? getLastFetchTime(String key) {
+    final timestamp = getInt('$_keyLastFetchPrefix$key');
+    if (timestamp == null) return null;
+    return DateTime.fromMillisecondsSinceEpoch(timestamp);
+  }
+  
+  /// Save cached data as JSON string
+  static Future<void> saveJsonData(String key, String jsonData) async {
+    await setString(key, jsonData);
+    await saveLastFetchTime(key);
+  }
+  
+  /// Get cached JSON data
+  static String? getJsonData(String key) {
+    return getString(key);
+  }
+
   /// --------------------------
   /// 🧩 Specific App Data Keys
   /// --------------------------

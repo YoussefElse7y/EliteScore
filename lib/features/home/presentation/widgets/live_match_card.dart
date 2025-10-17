@@ -56,6 +56,13 @@ class LiveMatchCard extends StatelessWidget {
                   child: Image.network(
                     leagueLogoUrl,
                     fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                        return const Icon(
+                          Icons.sports_soccer,
+                          color: Colors.white,
+                          size: 20,
+                        );
+                      },
                     loadingBuilder: (context, child, loadingProgress) {
                       if (loadingProgress == null) return child;
                       return Center(
@@ -65,6 +72,7 @@ class LiveMatchCard extends StatelessWidget {
                                     loadingProgress.expectedTotalBytes!
                               : null,
                         ),
+
                       );
                     },
                   ),
@@ -113,6 +121,13 @@ class LiveMatchCard extends StatelessWidget {
                         child: Image.network(
                           homeLogoUrl,
                           fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                        return const Icon(
+                          Icons.shield,
+                          color: Colors.white,
+                          size: 42,
+                        );
+                      },
                           loadingBuilder: (context, child, loadingProgress) {
                             if (loadingProgress == null) return child;
                             return Center(
@@ -161,6 +176,13 @@ class LiveMatchCard extends StatelessWidget {
                         child: Image.network(
                           awayLogoUrl,
                           fit: BoxFit.cover,
+                           errorBuilder: (context, error, stackTrace) {
+                        return const Icon(
+                          Icons.shield,
+                          color: Colors.white,
+                          size: 42,
+                        );
+                      },
                           loadingBuilder: (context, child, loadingProgress) {
                             if (loadingProgress == null) return child;
                             return Center(

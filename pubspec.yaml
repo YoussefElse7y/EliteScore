@@ -33,6 +33,7 @@ dependencies:
   progressive_image: ^2.0.1
   flutter_native_splash: ^2.4.6
   flutter_launcher_icons: ^0.14.4
+  internet_connection_checker: ^3.0.1
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
+import 'package:football_app/core/helpers/shared_prefs_helper.dart';
+import 'package:football_app/core/network/network_info.dart';
 import 'package:football_app/core/resources/data_state.dart';
 import 'package:football_app/features/competitions/data/data_sources/remote/competitions_api_services.dart';
 import 'package:football_app/features/competitions/data/models/league_details/league_details_response_model.dart';
@@ -10,14 +14,64 @@ import 'package:football_app/features/competitions/domain/repos/competitions_rep
 
 class CompetitionsRepoImpl implements CompetitionsRepo {
   final CompetitionsApiService _apiService;
-  CompetitionsRepoImpl(this._apiService);
+    final NetworkInfo _networkInfo; // ✅ Add NetworkInfo
+
+  CompetitionsRepoImpl(this._apiService, this._networkInfo);
+
+    // Cache keys
+  static const String _popularLeaguesKey = 'popular_leagues_cache';
+
   @override
+   @override
   Future<DataState<PopularLeaguesResponseEntity>> getPopularLeagues() async {
+    // ✅ Step 1: Check internet connection
+    if (!await _networkInfo.isConnected) {
+      // Try to get cached data
+      final cachedData = SharedPrefsHelper.getJsonData(_popularLeaguesKey);
+      final lastUpdated = SharedPrefsHelper.getLastFetchTime(_popularLeaguesKey);
+
+      if (cachedData != null) {
+        try {
+          final model = PopularLeaguesResponseModel.fromJson(
+            jsonDecode(cachedData),
+          );
+          // Return cached data with offline indicator
+          return DataSuccess(data: model.toEntity());
+        } catch (e) {
+          return DataFailed(
+            error: DioException(
+              requestOptions: RequestOptions(path: ''),
+              type: DioExceptionType.connectionError,
+              message: 'No internet connection. Last updated: ${_formatLastUpdated(lastUpdated)}',
+            ),
+          );
+        }
+      }
+
+      // No cached data available
+      return DataFailed(
+        error: DioException(
+          requestOptions: RequestOptions(path: ''),
+          type: DioExceptionType.connectionError,
+          message: 'No internet connection and no cached data available',
+        ),
+      );
+    }
+
+    // ✅ Step 2: Has internet - fetch from API
     try {
       final response = await _apiService.getPopularLeagues();
+      
       if (response.response.statusCode == 200) {
         final data = response.data;
         final model = PopularLeaguesResponseModel.fromJson(data);
+
+        // ✅ Step 3: Cache the data
+        await SharedPrefsHelper.saveJsonData(
+          _popularLeaguesKey,
+          jsonEncode(data),
+        );
+
         return DataSuccess(data: model.toEntity());
       } else {
         return DataFailed(
@@ -29,10 +83,39 @@ class CompetitionsRepoImpl implements CompetitionsRepo {
         );
       }
     } on DioException catch (e) {
+      // If API fails, try cache as fallback
+      final cachedData = SharedPrefsHelper.getJsonData(_popularLeaguesKey);
+      if (cachedData != null) {
+        try {
+          final model = PopularLeaguesResponseModel.fromJson(
+            jsonDecode(cachedData),
+          );
+          return DataSuccess(data: model.toEntity());
+        } catch (_) {
+          return DataFailed(error: e);
+        }
+      }
       return DataFailed(error: e);
     }
   }
 
+  // ✅ Helper method to format last updated time
+  String _formatLastUpdated(DateTime? lastUpdated) {
+    if (lastUpdated == null) return 'Unknown';
+
+    final now = DateTime.now();
+    final difference = now.difference(lastUpdated);
+
+    if (difference.inMinutes < 1) {
+      return 'Just now';
+    } else if (difference.inMinutes < 60) {
+      return '${difference.inMinutes} minutes ago';
+    } else if (difference.inHours < 24) {
+      return '${difference.inHours} hours ago';
+    } else {
+      return '${difference.inDays} days ago';
+    }
+  }
   @override
   Future<DataState<LeagueDetailsResponseModel>> geLeaguesDetailsById(
     int leagueId,

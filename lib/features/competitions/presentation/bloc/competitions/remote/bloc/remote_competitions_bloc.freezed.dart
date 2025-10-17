@@ -317,12 +317,12 @@ return remotePopularLeaguesError(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  remotePopularLeaguesLoading,TResult Function( List<PopularLeagueEntity> popularLeagues)?  remotePopularLeaguesLoaded,TResult Function( DioException error)?  remotePopularLeaguesError,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  remotePopularLeaguesLoading,TResult Function( List<PopularLeagueEntity> popularLeagues,  bool isFromCache,  DateTime? lastUpdated)?  remotePopularLeaguesLoaded,TResult Function( DioException error,  List<PopularLeagueEntity>? cachedData,  DateTime? lastUpdated)?  remotePopularLeaguesError,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _remotePopularLeaguesLoading() when remotePopularLeaguesLoading != null:
 return remotePopularLeaguesLoading();case _remotePopularLeaguesLoaded() when remotePopularLeaguesLoaded != null:
-return remotePopularLeaguesLoaded(_that.popularLeagues);case _remotePopularLeaguesError() when remotePopularLeaguesError != null:
-return remotePopularLeaguesError(_that.error);case _:
+return remotePopularLeaguesLoaded(_that.popularLeagues,_that.isFromCache,_that.lastUpdated);case _remotePopularLeaguesError() when remotePopularLeaguesError != null:
+return remotePopularLeaguesError(_that.error,_that.cachedData,_that.lastUpdated);case _:
   return orElse();
 
 }
@@ -340,12 +340,12 @@ return remotePopularLeaguesError(_that.error);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  remotePopularLeaguesLoading,required TResult Function( List<PopularLeagueEntity> popularLeagues)  remotePopularLeaguesLoaded,required TResult Function( DioException error)  remotePopularLeaguesError,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  remotePopularLeaguesLoading,required TResult Function( List<PopularLeagueEntity> popularLeagues,  bool isFromCache,  DateTime? lastUpdated)  remotePopularLeaguesLoaded,required TResult Function( DioException error,  List<PopularLeagueEntity>? cachedData,  DateTime? lastUpdated)  remotePopularLeaguesError,}) {final _that = this;
 switch (_that) {
 case _remotePopularLeaguesLoading():
 return remotePopularLeaguesLoading();case _remotePopularLeaguesLoaded():
-return remotePopularLeaguesLoaded(_that.popularLeagues);case _remotePopularLeaguesError():
-return remotePopularLeaguesError(_that.error);case _:
+return remotePopularLeaguesLoaded(_that.popularLeagues,_that.isFromCache,_that.lastUpdated);case _remotePopularLeaguesError():
+return remotePopularLeaguesError(_that.error,_that.cachedData,_that.lastUpdated);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -362,12 +362,12 @@ return remotePopularLeaguesError(_that.error);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  remotePopularLeaguesLoading,TResult? Function( List<PopularLeagueEntity> popularLeagues)?  remotePopularLeaguesLoaded,TResult? Function( DioException error)?  remotePopularLeaguesError,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  remotePopularLeaguesLoading,TResult? Function( List<PopularLeagueEntity> popularLeagues,  bool isFromCache,  DateTime? lastUpdated)?  remotePopularLeaguesLoaded,TResult? Function( DioException error,  List<PopularLeagueEntity>? cachedData,  DateTime? lastUpdated)?  remotePopularLeaguesError,}) {final _that = this;
 switch (_that) {
 case _remotePopularLeaguesLoading() when remotePopularLeaguesLoading != null:
 return remotePopularLeaguesLoading();case _remotePopularLeaguesLoaded() when remotePopularLeaguesLoaded != null:
-return remotePopularLeaguesLoaded(_that.popularLeagues);case _remotePopularLeaguesError() when remotePopularLeaguesError != null:
-return remotePopularLeaguesError(_that.error);case _:
+return remotePopularLeaguesLoaded(_that.popularLeagues,_that.isFromCache,_that.lastUpdated);case _remotePopularLeaguesError() when remotePopularLeaguesError != null:
+return remotePopularLeaguesError(_that.error,_that.cachedData,_that.lastUpdated);case _:
   return null;
 
 }
@@ -411,7 +411,7 @@ String toString() {
 
 
 class _remotePopularLeaguesLoaded implements RemoteCompetitionsState {
-  const _remotePopularLeaguesLoaded({required final  List<PopularLeagueEntity> popularLeagues}): _popularLeagues = popularLeagues;
+  const _remotePopularLeaguesLoaded({required final  List<PopularLeagueEntity> popularLeagues, this.isFromCache = false, this.lastUpdated}): _popularLeagues = popularLeagues;
   
 
  final  List<PopularLeagueEntity> _popularLeagues;
@@ -421,6 +421,9 @@ class _remotePopularLeaguesLoaded implements RemoteCompetitionsState {
   return EqualUnmodifiableListView(_popularLeagues);
 }
 
+@JsonKey() final  bool isFromCache;
+// ✅ New: indicates offline data
+ final  DateTime? lastUpdated;
 
 /// Create a copy of RemoteCompetitionsState
 /// with the given fields replaced by the non-null parameter values.
@@ -432,16 +435,16 @@ _$remotePopularLeaguesLoadedCopyWith<_remotePopularLeaguesLoaded> get copyWith =
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _remotePopularLeaguesLoaded&&const DeepCollectionEquality().equals(other._popularLeagues, _popularLeagues));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _remotePopularLeaguesLoaded&&const DeepCollectionEquality().equals(other._popularLeagues, _popularLeagues)&&(identical(other.isFromCache, isFromCache) || other.isFromCache == isFromCache)&&(identical(other.lastUpdated, lastUpdated) || other.lastUpdated == lastUpdated));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_popularLeagues));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_popularLeagues),isFromCache,lastUpdated);
 
 @override
 String toString() {
-  return 'RemoteCompetitionsState.remotePopularLeaguesLoaded(popularLeagues: $popularLeagues)';
+  return 'RemoteCompetitionsState.remotePopularLeaguesLoaded(popularLeagues: $popularLeagues, isFromCache: $isFromCache, lastUpdated: $lastUpdated)';
 }
 
 
@@ -452,7 +455,7 @@ abstract mixin class _$remotePopularLeaguesLoadedCopyWith<$Res> implements $Remo
   factory _$remotePopularLeaguesLoadedCopyWith(_remotePopularLeaguesLoaded value, $Res Function(_remotePopularLeaguesLoaded) _then) = __$remotePopularLeaguesLoadedCopyWithImpl;
 @useResult
 $Res call({
- List<PopularLeagueEntity> popularLeagues
+ List<PopularLeagueEntity> popularLeagues, bool isFromCache, DateTime? lastUpdated
 });
 
 
@@ -469,10 +472,12 @@ class __$remotePopularLeaguesLoadedCopyWithImpl<$Res>
 
 /// Create a copy of RemoteCompetitionsState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? popularLeagues = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? popularLeagues = null,Object? isFromCache = null,Object? lastUpdated = freezed,}) {
   return _then(_remotePopularLeaguesLoaded(
 popularLeagues: null == popularLeagues ? _self._popularLeagues : popularLeagues // ignore: cast_nullable_to_non_nullable
-as List<PopularLeagueEntity>,
+as List<PopularLeagueEntity>,isFromCache: null == isFromCache ? _self.isFromCache : isFromCache // ignore: cast_nullable_to_non_nullable
+as bool,lastUpdated: freezed == lastUpdated ? _self.lastUpdated : lastUpdated // ignore: cast_nullable_to_non_nullable
+as DateTime?,
   ));
 }
 
@@ -483,10 +488,21 @@ as List<PopularLeagueEntity>,
 
 
 class _remotePopularLeaguesError implements RemoteCompetitionsState {
-  const _remotePopularLeaguesError({required this.error});
+  const _remotePopularLeaguesError({required this.error, final  List<PopularLeagueEntity>? cachedData, this.lastUpdated}): _cachedData = cachedData;
   
 
  final  DioException error;
+ final  List<PopularLeagueEntity>? _cachedData;
+ List<PopularLeagueEntity>? get cachedData {
+  final value = _cachedData;
+  if (value == null) return null;
+  if (_cachedData is EqualUnmodifiableListView) return _cachedData;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
+
+// ✅ New: fallback cached data
+ final  DateTime? lastUpdated;
 
 /// Create a copy of RemoteCompetitionsState
 /// with the given fields replaced by the non-null parameter values.
@@ -498,16 +514,16 @@ _$remotePopularLeaguesErrorCopyWith<_remotePopularLeaguesError> get copyWith => 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _remotePopularLeaguesError&&(identical(other.error, error) || other.error == error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _remotePopularLeaguesError&&(identical(other.error, error) || other.error == error)&&const DeepCollectionEquality().equals(other._cachedData, _cachedData)&&(identical(other.lastUpdated, lastUpdated) || other.lastUpdated == lastUpdated));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,error);
+int get hashCode => Object.hash(runtimeType,error,const DeepCollectionEquality().hash(_cachedData),lastUpdated);
 
 @override
 String toString() {
-  return 'RemoteCompetitionsState.remotePopularLeaguesError(error: $error)';
+  return 'RemoteCompetitionsState.remotePopularLeaguesError(error: $error, cachedData: $cachedData, lastUpdated: $lastUpdated)';
 }
 
 
@@ -518,7 +534,7 @@ abstract mixin class _$remotePopularLeaguesErrorCopyWith<$Res> implements $Remot
   factory _$remotePopularLeaguesErrorCopyWith(_remotePopularLeaguesError value, $Res Function(_remotePopularLeaguesError) _then) = __$remotePopularLeaguesErrorCopyWithImpl;
 @useResult
 $Res call({
- DioException error
+ DioException error, List<PopularLeagueEntity>? cachedData, DateTime? lastUpdated
 });
 
 
@@ -535,10 +551,12 @@ class __$remotePopularLeaguesErrorCopyWithImpl<$Res>
 
 /// Create a copy of RemoteCompetitionsState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? error = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? error = null,Object? cachedData = freezed,Object? lastUpdated = freezed,}) {
   return _then(_remotePopularLeaguesError(
 error: null == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
-as DioException,
+as DioException,cachedData: freezed == cachedData ? _self._cachedData : cachedData // ignore: cast_nullable_to_non_nullable
+as List<PopularLeagueEntity>?,lastUpdated: freezed == lastUpdated ? _self.lastUpdated : lastUpdated // ignore: cast_nullable_to_non_nullable
+as DateTime?,
   ));
 }
 

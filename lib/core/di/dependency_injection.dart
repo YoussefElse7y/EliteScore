@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:football_app/core/network/dio_factory.dart';
+import 'package:football_app/core/network/network_info.dart';
+
 import 'package:football_app/features/competitions/data/data_sources/remote/competitions_api_services.dart';
 import 'package:football_app/features/competitions/data/repos/competitions_repo_impl.dart';
 import 'package:football_app/features/competitions/domain/repos/competitions_repo.dart';
@@ -12,10 +14,22 @@ import 'package:football_app/features/competitions/presentation/bloc/fixture/blo
 import 'package:football_app/features/competitions/presentation/bloc/league_details/remote/bloc/league_details_bloc.dart';
 import 'package:football_app/features/competitions/presentation/bloc/standing/bloc/standing_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 final getIt = GetIt.instance;
 
 Future<void> setupGetIt() async {
+
+    // Network Info
+  getIt.registerLazySingleton<InternetConnectionChecker>(
+    () => InternetConnectionChecker.createInstance(),
+  );
+  
+  getIt.registerLazySingleton<NetworkInfo>(
+    () => NetworkInfoImpl(getIt<InternetConnectionChecker>()),
+  );
+
+
   // Dio & Api Services
   Dio dio = DioFactory.getDio();
   getIt.registerLazySingleton<CompetitionsApiService>(
@@ -24,7 +38,7 @@ Future<void> setupGetIt() async {
 
   // dependencies
   getIt.registerLazySingleton<CompetitionsRepo>(
-    () => CompetitionsRepoImpl(getIt<CompetitionsApiService>()),
+    () => CompetitionsRepoImpl(getIt<CompetitionsApiService>(),getIt<NetworkInfo>()),
   );
 
   // UseCases
